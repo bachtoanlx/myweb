@@ -1,0 +1,60 @@
+.main-menu {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 40px;
+    background-color: #6e7379;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-menu a {
+    line-height: 40px;
+    height: 100%;
+    font-size: 15px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+.main-menu .animation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    transition: all .5s ease 0s;
+    border-radius: 8px;
+}
+
+.main-menu .start-home, .main-menu a:nth-child(1):hover~.animation {
+    width: 100px;
+    left: 0;
+    background-color: #1abc9c;
+}
+
+.main-menu .start-input, .main-menu a:nth-child(2):hover~.animation {
+    width: 100px;
+    left: 100px;
+    background-color: #1abc9c;
+}
+
+.main-menu .start-data, .main-menu a:nth-child(3):hover~.animation {
+    width: 100px;
+    left: 200px;
+    background-color: #1abc9c;
+}
+
+.main-menu .start-contact, .main-menu a:nth-child(4):hover~.animation {
+    width: 100px;
+    left: 300px;
+    background-color: #1abc9c;
+}
