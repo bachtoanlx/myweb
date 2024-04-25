@@ -79,7 +79,7 @@
         
         /* Điều chỉnh khoảng cách dưới cùng của container */
         .container {
-            padding-bottom: 30px; /* Điều chỉnh khoảng cách dưới cùng của container */
+            padding-bottom: 10px; /* Điều chỉnh khoảng cách dưới cùng của container */
         }
 
         /* Điều chỉnh khoảng cách phía trên của nút "Thu gọn" */
@@ -87,21 +87,13 @@
             margin-top: 10px; /* Điều chỉnh khoảng cách phía trên của nút */
         }
 
-        /* Thiết lập CSS cho các thiết bị có kích thước nhỏ hơn */
-        @media (max-width: 768px) {
-            #showAllButton {
-                margin-top: 10px; /* Điều chỉnh khoảng cách phía trên của nút trên thiết bị di động */
-            }
-            .container {
-                padding-bottom: 10px; /* Điều chỉnh khoảng cách dưới cùng của container trên thiết bị di động */
-            }
-        }
+
     </style>
 </head>
 <body>
     <div class="container mt-1" style="margin-bottom: 5px;"> <!-- Container Bootstrap -->
         <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
-            <div class="col-md-5"> <!-- Cột Bootstrap: chiều rộng 41,6% trên màn hình lớn -->
+            <div class="col-md-12"> <!-- Cột Bootstrap: chiều rộng 100% trên màn hình lớn -->
                 <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung -->   
                     <div class="card-body"
 
@@ -116,12 +108,14 @@
         </div>
         
         <!-- Bảng dữ liệu từ Google Sheets -->
-        <table class="table table-bordered" id="data-table">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="data-table">
             <thead>
                 <tr id="header-row"></tr>
             </thead>
             <tbody id="data-body"></tbody>
         </table>
+    </div>
 
         <!-- Nút hiển thị tất cả -->
         <button class="btn btn-primary mt-3" id="showAllButton" style="width: 100%;">Hiển thị tất cả</button>
