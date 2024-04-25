@@ -87,6 +87,12 @@
             margin-top: 10px; /* Điều chỉnh khoảng cách phía trên của nút */
         }
 
+        /* Định dạng bảng để hiển thị tốt trên thiết bị di động */
+        @media (max-width: 576px) {
+        table {
+            font-size: 14px; /* Giảm kích thước font chữ trên thiết bị nhỏ */
+            }
+        }
 
     </style>
 </head>
@@ -109,7 +115,7 @@
         
         <!-- Bảng dữ liệu từ Google Sheets -->
         <div class="table-responsive">
-            <table class="table table-bordered" id="data-table">
+            <table class="table table-bordered table-sm" id="data-table">
             <thead>
                 <tr id="header-row"></tr>
             </thead>
