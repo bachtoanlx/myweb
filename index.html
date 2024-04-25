@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý chi tiêu cá nhân</title>
+    <!-- Bootstrap MENU CSS -->
+    <link rel="stylesheet" href="menu.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        /* Thêm CSS tùy chỉnh tại đây nếu cần */
+        body {
+            min-height: 100vh; /* Đảm bảo chiều cao của body ít nhất là 100% chiều cao của viewport */
+			margin: 0;
+			padding: 0;
+			background-color: #f8f9fa; /* Màu nền của trang */
+			display: flex;
+			justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+			align-items: center; /* Căn giữa nội dung theo chiều dọc */
+        }
+
+        /* Định dạng cho input "Ghi chú" */
+        #ghi_chu {
+            text-align: left; /* Canh trái nội dung */
+            height: 80px; /* Chiều cao cố định */
+            overflow-y: auto; /* Cho phép tự động xuống dòng khi đủ chiều cao */
+            resize: none; /* Ngăn chặn thay đổi kích thước của textarea */
+        }
+		
+		/* Điều chỉnh khoảng cách giữa label và input */
+		.form-group label {
+			margin-bottom: 1px; /* Khoảng cách dưới của label */
+			display: block; /* Hiển thị label dưới dạng block để nó nằm trên một dòng riêng */
+		}
+		.form-group input,
+		.form-group select,
+		.form-group textarea {
+        margin-bottom: 1px; /* Khoảng cách dưới của input, select, textarea */
+		}
+		
+		/* Điều chỉnh khoảng cách giữa các form-group */
+		.form-group {
+        margin-bottom: 8px; /* Khoảng cách dưới của mỗi form-group */
+		}
+		/* Định dạng placeholder */
+		::placeholder {
+        font-size: 14px; /* Cỡ chữ của placeholder */
+        }
+        
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="container mt-1" style="margin-bottom: 5px;"> <!-- Container Bootstrap -->
+        <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
+            <div class="col-md-5"> <!-- Cột Bootstrap: chiều rộng 41,6% trên màn hình lớn -->
+                <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung --> 
+                    <div class="card-body">
+                        <h5 class="text-center mb-2">QUẢN LÝ CHI TIÊU</h5>
+                        <form id="registrationForm" onsubmit="submitForm(); return false;">
+
+                            <div class="form-group">
+                                <label for="Noidungchi">Nội dung chi:</label>
+                                <input type="text" class="form-control" placeholder="Điền nội dung chi..." id="noi_dung_chi" name="noi_dung_chi" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Hinhthucchi">Hình thức chi:</label>
+                                <select class="form-control" id="hinh_thuc_chi" name="hinh_thuc_chi" required>
+                                    <option value="" disabled selected>- Chọn hình thức -</option>
+                                    <option value="Trực tiếp">Trực tiếp</option>
+                                    <option value="Online">Online</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Hinhthucthanhtoan">Hình thức thanh toán:</label>
+                                <select class="form-control" id="hinh_thuc_tt" name="hinh_thuc_tt" required>
+                                    <option value="" disabled selected>- Chọn hình thức -</option>
+                                    <option value="Tiền mặt">Tiền mặt</option>
+                                    <option value="Thẻ ghi nợ">Thẻ ghi nợ</option>
+                                    <option value="Chuyển khoản">Chuyển khoản</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Sotien">Số tiền:</label>
+                                <input type="number" class="form-control" placeholder="Điền số tiền đã chi..." id="so_tien" name="so_tien" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Ngayphatsinh">Ngày phát sinh:</label>
+                                <input type="date" class="form-control" placeholder="Ngày phát sinh giao dịch..." id="ngay_phat_sinh" name="ngay_phat_sinh">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Ghichu">Ghi chú:</label>
+                                <textarea class="form-control" placeholder="" id="ghi_chu" name="ghi_chu"></textarea>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary btn-block" id="ss-submit" type="submit">Gửi thông tin</button>
+                            </div>
+                            <!-- thanh menu -->
+                            <nav>
+                                <a href="https://bachtoanlx.github.io/myweb/index.html">Home</a>
+                                <a href="https://bachtoanlx.github.io/myweb/datatable.html">Data</a>
+                                <a href="#">About</a>
+                                <div class="animation start-home"></div>
+                            </nav> 
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Bootstrap JS và các thư viện khác -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+// Hàm xử lý khi submit form
+function submitForm() {
+    // Hiển thị modal loading
+    $('#loadingModal').modal('show');
+
+    var noi_dung_chi = document.getElementById('noi_dung_chi').value;
+    var hinh_thuc_chi = document.getElementById('hinh_thuc_chi').value;
+    var hinh_thuc_tt = document.getElementById('hinh_thuc_tt').value;
+    var so_tien = document.getElementById('so_tien').value;
+    var ngay_phat_sinh = document.getElementById('ngay_phat_sinh').value || getCurrentDate();
+    var ghi_chu = document.getElementById('ghi_chu').value;
+
+    if (!noi_dung_chi || !hinh_thuc_chi || !hinh_thuc_tt || !so_tien) {
+        $('#errorModal').modal('show'); // Hiển thị modal lỗi
+        $('#loadingModal').modal('hide'); // Ẩn modal loading
+        return;
+    }
+
+    var formData = {
+        noi_dung_chi: noi_dung_chi,
+        hinh_thuc_chi: hinh_thuc_chi,
+        hinh_thuc_tt: hinh_thuc_tt,
+        so_tien: so_tien,
+        ngay_phat_sinh: ngay_phat_sinh,
+        ghi_chu: ghi_chu
+    };
+
+    console.log(formData);
+
+    fetch('https://script.google.com/macros/s/AKfycbzJI-iqo9UcL854_1yqWVZwP2hpHtPCdZ2r0AMEBykjgz6Kp2QeU3jSshLGypCGWMjU/exec', {
+        method: 'POST',
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.result === 'success') {
+            $('#successModal').modal('show'); // Hiển thị modal thành công
+            document.getElementById('registrationForm').reset();
+        } else {
+            $('#errorModal').modal('show'); // Hiển thị modal lỗi
+        }
+    })
+    .catch(error => {
+        console.error('Đã xảy ra lỗi:', error);
+        $('#errorModal').modal('show'); // Hiển thị modal lỗi
+    })
+    .finally(() => {
+        // Ẩn modal loading sau khi hoàn thành
+        $('#loadingModal').modal('hide');
+    });
+}
+// ĐỊNH NGHĨA HÀM ĐỂ VIẾT HOA CHỮ CÁI ĐẦU CỦA CHUỖI
+        function capitalizeFirstLetter(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Lắng nghe sự kiện khi người dùng nhập liệu vào trường input
+        document.addEventListener('DOMContentLoaded', function() {
+            var inputField = document.getElementById('noi_dung_chi');
+
+            inputField.addEventListener('input', function() {
+                // Lấy giá trị nhập vào từ trường input
+                var inputValue = inputField.value;
+
+                // Chuyển đổi chuỗi thành dạng viết hoa chữ cái đầu
+                var capitalizedValue = capitalizeFirstLetter(inputValue);
+
+                // Đặt lại giá trị đã chuyển đổi vào trường input
+                inputField.value = capitalizedValue;
+            });
+        });
+
+// HÀM LẤY NGÀY HIỆN TẠI DƯỚI DẠNG CHUỖI YYYY-MM-DD
+function getCurrentDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Tháng đếm từ 0, cần cộng thêm 1 và format về dạng 2 chữ số
+    var day = ('0' + today.getDate()).slice(-2); // Ngày format về dạng 2 chữ số
+    return year + '-' + month + '-' + day;
+}
+
+function setMaxDateForNgayPhatSinh() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Tháng đếm từ 0, cần cộng thêm 1 và format về dạng 2 chữ số
+    var day = ('0' + today.getDate()).slice(-2); // Ngày format về dạng 2 chữ số
+
+    var maxDate = year + '-' + month + '-' + day;
+
+    // Đặt thuộc tính max cho input ngày phat sinh 
+    document.getElementById('ngay_phat_sinh').setAttribute('max', maxDate);
+}
+
+// Gọi hàm setMaxDateForNgayPhatSinh() khi tài liệu được tải
+document.addEventListener('DOMContentLoaded', function() {
+    setMaxDateForNgayPhatSinh();
+});
+
+
+</script>
+<!-- CÁC MODAL THÔNG BÁO KHI GỬI DỮ LIỆU -->
+<!-- Modal Thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="text-success"><i class="fas fa-check-circle fa-3x mb-3"></i></p>
+                <p class="mb-0"><strong>Ghi nhận thành công!</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Lỗi -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Lỗi!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ghi nhận thất bại. Vui lòng thử lại.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Loading khi đang gửi dữ liệu-->
+<div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <p class="mt-2">Đang gửi dữ liệu...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

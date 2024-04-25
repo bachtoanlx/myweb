@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Data 2024</title>
+    <!-- Bootstrap MENU CSS -->
+    <link rel="stylesheet" href="menu.css">
+    <!-- Nhúng CSS của Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            /* Thêm CSS tùy chỉnh tại đây nếu cần */
+            body {
+            min-height: 100vh; /* Đảm bảo chiều cao của body ít nhất là 100% chiều cao của viewport */
+			margin: 0;
+			padding: 0;
+			background-color: #f8f9fa; /* Màu nền của trang */
+			display: flex;
+			justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+			align-items: center; /* Căn giữa nội dung theo chiều dọc */
+        }
+
+        /* Định dạng cho bảng dữ liệu */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left; /* Căn trái ngang nội dung*/
+            vertical-align: middle;
+            line-height: 1.2; /* Thay đổi giá trị line-height tùy vào kích thước của ô */
+            font-size: 15px;
+        }
+
+        th {
+            text-align: center; /* Căn giữa ngang tiêu đề */
+            vertical-align: middle; /* Căn giữa dọc tiêu đề */
+            line-height: 1.2; /* Thay đổi giá trị line-height tùy vào kích thước của ô */
+            height: 20px; /* Đặt chiều cao cho ô để căn giữa nội dung dọc */
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Điều chỉnh độ rộng của từng cột */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 10%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 40%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 15%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 20%;
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 15%;
+        }
+
+        /* Ẩn các ô dữ liệu có class 'hidden-column' */
+        .hidden-column {
+            display: none;
+        }
+
+        
+        /* Điều chỉnh khoảng cách dưới cùng của container */
+        .container {
+            padding-bottom: 30px; /* Điều chỉnh khoảng cách dưới cùng của container */
+        }
+
+        /* Điều chỉnh khoảng cách phía trên của nút "Thu gọn" */
+        #showAllButton {
+            margin-top: 10px; /* Điều chỉnh khoảng cách phía trên của nút */
+        }
+
+        /* Thiết lập CSS cho các thiết bị có kích thước nhỏ hơn */
+        @media (max-width: 768px) {
+            #showAllButton {
+                margin-top: 10px; /* Điều chỉnh khoảng cách phía trên của nút trên thiết bị di động */
+            }
+            .container {
+                padding-bottom: 10px; /* Điều chỉnh khoảng cách dưới cùng của container trên thiết bị di động */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-1" style="margin-bottom: 5px;"> <!-- Container Bootstrap -->
+        <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
+            <div class="col-md-5"> <!-- Cột Bootstrap: chiều rộng 41,6% trên màn hình lớn -->
+                <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung -->   
+                    <div class="card-body"
+
+                <h5 class="mb-3">Google Sheets Data QLCT 2024</h5>
+
+        <!-- Ô tìm kiếm với Bootstrap -->
+        <div class="input-group mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Nhập từ khóa tìm kiếm...">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="searchButton">Tìm kiếm</button>
+            </div>
+        </div>
+        
+        <!-- Bảng dữ liệu từ Google Sheets -->
+        <table class="table table-bordered" id="data-table">
+            <thead>
+                <tr id="header-row"></tr>
+            </thead>
+            <tbody id="data-body"></tbody>
+        </table>
+
+        <!-- Nút hiển thị tất cả -->
+        <button class="btn btn-primary mt-3" id="showAllButton" style="width: 100%;">Hiển thị tất cả</button>
+
+
+    <!-- thanh menu -->
+    <nav>
+        <a href="https://bachtoanlx.github.io/myweb/index.html">Home</a>
+        <a href="https://bachtoanlx.github.io/myweb/datatable.html">Data</a>
+        <a href="#">About</a>
+        <div class="animation start-Data"></div>
+    </nav> 
+</div>
+</div>
+</div>
+</div>
+</div>
+    <!-- Nhúng JavaScript của Bootstrap (cần thiết cho một số thành phần Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+    <!-- Nhúng JavaScript của Google Sheets API -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var columnsToHide = [2, 3, 7]; // Chỉ số của các cột bạn muốn ẩn (tính từ 0)
+            var dataRows = []; // Mảng lưu trữ các dòng dữ liệu từ Google Sheets
+
+            // Load Sheets API và gọi hàm fetchSheetData để lấy dữ liệu
+            gapi.load('client', loadSheetsApi);
+
+            function loadSheetsApi() {
+                gapi.client.init({
+                    apiKey: 'AIzaSyANdbEb_R9E-tXldeDDoMTRfFX54NECou4',
+                    discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+                }).then(function() {
+                    fetchSheetData();
+                });
+            }
+
+            function fetchSheetData() {
+                gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: '1OXbNo346jP4bim7gnjbvKR8wyslJ6pxOC5P_Iiik43Q',
+                    range: 'Sheet1!A1:H'
+                }).then(function(response) {
+                    var values = response.result.values;
+
+                    if (values && values.length > 0) {
+                        var headerRow = values[0]; // Lấy dòng đầu tiên làm tiêu đề
+                        dataRows = values.slice(1); // Lấy tất cả dòng dữ liệu (bỏ qua dòng đầu là tiêu đề)
+
+                        // Hiển thị tiêu đề của bảng
+                        var headerRowElement = document.getElementById('header-row');
+                        headerRow.forEach(function(cellValue, index) {
+                            if (!columnsToHide.includes(index)) {
+                                var th = document.createElement('th');
+                                th.textContent = cellValue;
+                                headerRowElement.appendChild(th);
+                            }
+                        });
+
+                        // Hiển thị dữ liệu ban đầu (chỉ hiển thị 7 dòng đầu)
+                        showDataRows(dataRows.slice(0, 7));
+                    } else {
+                        console.log('No data found.');
+                    }
+                }, function(error) {
+                    console.error('Error loading Google Sheets API:', error);
+                });
+            }
+
+            function showDataRows(rows) {
+                var dataBodyElement = document.getElementById('data-body');
+                dataBodyElement.innerHTML = ''; // Xóa dữ liệu hiện có trong tbody
+
+                // Hiển thị các dòng dữ liệu mới
+                rows.forEach(function(row) {
+                    var tr = document.createElement('tr');
+                    row.forEach(function(cellValue, index) {
+                        if (!columnsToHide.includes(index)) {
+                            var td = document.createElement('td');
+                            td.textContent = cellValue;
+                            tr.appendChild(td);
+                        }
+                    });
+                    dataBodyElement.appendChild(tr);
+                });
+            }
+
+            // Lắng nghe sự kiện khi nhấn nút "Hiển thị tất cả" hoặc "Thu gọn"
+            var showAllButton = document.getElementById('showAllButton');
+            var isExpanded = false; // Theo dõi trạng thái dữ liệu (đã được mở rộng hay thu gọn)
+            showAllButton.addEventListener('click', function() {
+                if (isExpanded) {
+                    // Đang ở trạng thái đã mở rộng, cần thu gọn lại
+                    showDataRows(dataRows.slice(0, 7)); // Chỉ hiển thị 7 dòng đầu
+                    showAllButton.textContent = 'Hiển thị tất cả'; // Đổi nội dung của nút
+                    isExpanded = false; // Cập nhật trạng thái
+                } else {
+                    // Đang ở trạng thái thu gọn, cần hiển thị tất cả
+                    showDataRows(dataRows); // Hiển thị tất cả dữ liệu
+                    showAllButton.textContent = 'Thu gọn'; // Đổi nội dung của nút
+                    isExpanded = true; // Cập nhật trạng thái
+                }
+            });
+
+             // Lắng nghe sự kiện khi nhập vào ô tìm kiếm
+                var searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', function() {
+                    var searchText = searchInput.value.trim().toLowerCase(); // Lấy văn bản tìm kiếm
+
+                    // Lọc dữ liệu dựa trên văn bản tìm kiếm linh hoạt
+                    var filteredRows = dataRows.filter(function(row) {
+                        return row.some(function(cellValue) {
+                            // Chuyển đổi giá trị ô dữ liệu thành chữ thường và kiểm tra xem có chứa searchText không
+                            return cellValue.toString().toLowerCase().includes(searchText);
+                        });
+                    });
+
+                    // Hiển thị các dòng đã lọc
+                    showDataRows(filteredRows);
+                });
+            });
+            // Đặt thời gian tự động reload (miliseconds)
+            var reloadInterval = 30000; // Ví dụ: reload sau mỗi 60 giây (60,000 miliseconds)
+
+            // Hàm tự động reload trang sau một khoảng thời gian nhất định
+            function autoReload() {
+                setTimeout(function() {
+                    location.reload(); // Tải lại trang
+                }, reloadInterval);
+            }
+
+            // Gọi hàm autoReload để bắt đầu tự động reload
+            autoReload();
+    </script>
+</body>
+</html>
