@@ -1,3 +1,4 @@
+#menu {
 nav {
 	margin: 17px auto 0;
 	position: relative;
@@ -82,4 +83,5 @@ p {
 
 span {
     color: #2BD6B4;
+}
 }
