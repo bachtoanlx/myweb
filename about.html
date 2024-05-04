@@ -9,7 +9,35 @@
 
         <title>Liên hệ </title>                    
         <link rel="stylesheet" href="https://nentang.vn/app/css/bootstrap.css?id=c9acc4101727d689dd4b">
-        <link rel="stylesheet" href="menu.css"> 
+        <link rel="stylesheet" href="menu.css">
+        <!-- Nhúng CSS của Bootstrap -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+            /* Thêm CSS tùy chỉnh tại đây nếu cần */
+            body {
+            min-height: 100vh; /* Đảm bảo chiều cao của body ít nhất là 100% chiều cao của viewport */
+			margin: 0;
+			padding: 0;
+			background-color: #f8f9fa; /* Màu nền của trang */
+			display: flex;
+			justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+			align-items: center; /* Căn giữa nội dung theo chiều dọc */
+        }
+        
+        /* Điều chỉnh khoảng cách dưới cùng của container */
+        .container {
+            padding-bottom: 10px; /* Điều chỉnh khoảng cách dưới cùng của container */
+        }
+
+        /* Định dạng bảng để hiển thị tốt trên thiết bị di động */
+        @media (max-width: 576px) {
+        table {
+            font-size: 14px; /* Giảm kích thước font chữ trên thiết bị nhỏ */
+            }
+        }
+
+    </style>
 
 <script>
 let app = window.app || {};
@@ -41,7 +69,7 @@ let app = window.app || {};
     <div class="col col-12 col-sm-12 col-md-3 col-lg-3">
       <div class="card">
     <div class="card-header">
-    <h4>Giới thiệu</h4>
+    <h5>Giới thiệu</h5>
     </div>
 
     <div class="card-body">
@@ -86,7 +114,7 @@ let app = window.app || {};
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Gởi lời nhắn đến chúng tôi:</h4>
+                <h5 class="card-title">Gởi lời nhắn đến chúng tôi:</h5>
               </div>
               <div class="card-content">
                 <div class="card-body">
