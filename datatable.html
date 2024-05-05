@@ -30,11 +30,11 @@
         td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left; /* Căn trái ngang nội dung*/
+            text-align: center; /* Căn giữa ngang nội dung trong ô */
             vertical-align: middle;
             line-height: 1.2; /* Thay đổi giá trị line-height tùy vào kích thước của ô */
-            font-size: 15px;
         }
+
 
         th {
             text-align: center; /* Căn giữa ngang tiêu đề */
@@ -76,12 +76,6 @@
             display: none;
         }
 
-        
-        /* Điều chỉnh khoảng cách dưới cùng của container */
-        .container {
-            padding-bottom: 10px; /* Điều chỉnh khoảng cách dưới cùng của container */
-        }
-
         /* Điều chỉnh khoảng cách phía trên của nút "Thu gọn" */
         #showAllButton {
             margin-top: 10px; /* Điều chỉnh khoảng cách phía trên của nút */
@@ -89,15 +83,21 @@
 
         /* Định dạng bảng để hiển thị tốt trên thiết bị di động */
         @media (max-width: 576px) {
-        table {
+        table, td {
             font-size: 14px; /* Giảm kích thước font chữ trên thiết bị nhỏ */
             }
-        }
+        } 
+        /* Định dạng bảng để hiển thị tốt trên màn hình lớn hơn */
+        @media (min-width: 992px) {
+            table, td {
+                font-size: 17px; /* Tăng kích thước font chữ trên màn hình lớn */
+            }
+        }    
 
     </style>
 </head>
 <body>
-    <div class="container mt-1" style="margin-bottom: 5px;"> <!-- Container Bootstrap -->
+    <div class="container mt-3 mb-3"> <!-- Container Bootstrap -->  
         <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
             <div class="col-md-12"> <!-- Cột Bootstrap: chiều rộng 100% trên màn hình lớn -->
                 <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung -->   
@@ -127,16 +127,16 @@
         <button class="btn btn-primary mt-3" id="showAllButton" style="width: 100%;">Hiển thị tất cả</button>
 
 
-<div id="menu">
-    <!-- Nội dung của phần bạn muốn áp dụng CSS --> 
-    <!-- thanh menu -->
-    <nav>
-        <a href="https://bachtoanlx.github.io/myweb/index.html">Home</a>
-        <a href="https://bachtoanlx.github.io/myweb/datatable.html">Data</a>
-        <a href="https://bachtoanlx.github.io/myweb/about.html">About</a>
-        <div class="animation start-Data"></div>
-    </nav> 
-</div>
+    <div id="menu">
+        <!-- Nội dung của phần bạn muốn áp dụng CSS --> 
+        <!-- thanh menu -->
+        <nav>
+            <a href="https://bachtoanlx.github.io/myweb/index.html">Home</a>
+            <a href="https://bachtoanlx.github.io/myweb/datatable.html">Data</a>
+            <a href="https://bachtoanlx.github.io/myweb/about.html">About</a>
+            <div class="animation start-Data"></div>
+        </nav> 
+    </div>
 
 </div>
 </div>
@@ -189,8 +189,8 @@
                             }
                         });
 
-                        // Hiển thị dữ liệu ban đầu (chỉ hiển thị 6 dòng đầu)
-                        showDataRows(dataRows.slice(0, 6));
+                        // Hiển thị dữ liệu ban đầu (chỉ hiển thị 7 dòng đầu)
+                        showDataRows(dataRows.slice(0, 7));
                     } else {
                         console.log('No data found.');
                     }
@@ -252,7 +252,7 @@
                 });
             });
             // Đặt thời gian tự động reload (miliseconds)
-            var reloadInterval = 30000; // Ví dụ: reload sau mỗi 60 giây (60,000 miliseconds)
+            var reloadInterval = 60000; // Ví dụ: reload sau mỗi 60 giây (60,000 miliseconds)
 
             // Hàm tự động reload trang sau một khoảng thời gian nhất định
             function autoReload() {
