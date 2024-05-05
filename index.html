@@ -24,14 +24,14 @@
         /* Định dạng cho input "Ghi chú" */
         #ghi_chu {
             text-align: left; /* Canh trái nội dung */
-            height: 80px; /* Chiều cao cố định */
+            height: 150px; /* Chiều cao cố định */
             overflow-y: auto; /* Cho phép tự động xuống dòng khi đủ chiều cao */
             resize: none; /* Ngăn chặn thay đổi kích thước của textarea */
         }
 		
 		/* Điều chỉnh khoảng cách giữa label và input */
 		.form-group label {
-			margin-bottom: 1px; /* Khoảng cách dưới của label */
+			margin-bottom: 3px; /* Khoảng cách dưới của label */
 			display: block; /* Hiển thị label dưới dạng block để nó nằm trên một dòng riêng */
 		}
 		.form-group input,
@@ -42,8 +42,9 @@
 		
 		/* Điều chỉnh khoảng cách giữa các form-group */
 		.form-group {
-        margin-bottom: 8px; /* Khoảng cách dưới của mỗi form-group */
+        margin-bottom: 10px; /* Khoảng cách dưới của mỗi form-group */
 		}
+
 		/* Định dạng placeholder */
 		::placeholder {
         font-size: 14px; /* Cỡ chữ của placeholder */
@@ -55,16 +56,23 @@
         }
 
         /* Sử dụng Media Queries để điều chỉnh kích thước chữ cho các kích cỡ màn hình khác nhau */
-        @media screen and (max-width: 768px) {
+        @media screen and (min-width: 992px) {
         select.form-control {
-            font-size: 14px; /* Kích thước chữ khi màn hình có độ rộng <= 768px */
-        }
+            font-size: 16px; /* Kích thước chữ khi màn hình có độ rộng <= 992px */
+            }
         }
 
+        /* Sử dụng Media Queries để điều chỉnh kích thước chữ của placeholder cho các kích cỡ màn hình khác nhau */
+        @media screen and (min-width: 992px) {
+            ::placeholder {
+                font-size: 16px; /* Cỡ chữ của placeholder khi màn hình có độ rộng lớn hơn hoặc bằng 992px */
+            }
+        }
+        
         @media screen and (max-width: 576px) {
         select.form-control {
-            font-size: 14px; /* Kích thước chữ khi màn hình có độ rộng <= 576px */
-        }
+            font-size: 14px; /* Kích thước chữ khi màn hình có độ rộng <= 576px */     
+            }
         }
 
         
@@ -75,12 +83,12 @@
 <body>
 
 
-    <div class="container mt-1" style="margin-bottom: 5px;"> <!-- Container Bootstrap -->
+    <div class="container mt-3 mb-3"> <!-- Container Bootstrap -->  
         <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
             <div class="col-md-5"> <!-- Cột Bootstrap: chiều rộng 41,6% trên màn hình lớn -->
                 <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung --> 
                     <div class="card-body">
-                        <h5 class="text-center mb-2">QUẢN LÝ CHI TIÊU</h5>
+                        <h5 class="text-center mb-2" style="color: blue;">QUẢN LÝ CHI TIÊU</h5>
                         <form id="registrationForm" onsubmit="submitForm(); return false;">
 
                             <div class="form-group">
@@ -91,14 +99,14 @@
                             <div class="form-group">
                                 <label for="hinh_thuc_chi">Hình thức:</label>
                                 <select class="form-control" id="hinh_thuc_chi" name="hinh_thuc_chi" required style="display: inline-block; width: 40%;">
-                                  <option value="" disabled selected>- Hình thức chi -</option>
+                                  <option value="" disabled selected>Hình thức chi</option>
                                   <option value="Trực tiếp">Trực tiếp</option>
                                   <option value="Online">Online</option>
                                   <option value="Khác">Khác</option>
                                 </select>
                               
                                 <select class="form-control" id="hinh_thuc_tt" name="hinh_thuc_tt" required style="display: inline-block; width: 58%;">
-                                  <option value="" disabled selected>- Hình thức thanh toán -</option>
+                                  <option value="" disabled selected>Hình thức thanh toán</option>
                                   <option value="Tiền mặt">Tiền mặt</option>
                                   <option value="Thẻ ghi nợ">Thẻ ghi nợ</option>
                                   <option value="Chuyển khoản">Chuyển khoản</option>
@@ -119,9 +127,9 @@
 
                             <div class="form-group">
                                 <label for="Ghichu">Ghi chú:</label>
-                                <textarea class="form-control" placeholder="" id="ghi_chu" name="ghi_chu"></textarea>
+                                <textarea  class="form-control" placeholder="Nhập ghi chú của bạn (nếu cần)" id="ghi_chu" name="ghichu" ></textarea>
                             </div>
-
+                        
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-block" id="ss-submit" type="submit">Gửi thông tin</button>
                             </div>
@@ -187,10 +195,19 @@ function submitForm() {
     .then(data => {
         console.log(data);
         if (data.result === 'success') {
-            $('#successModal').modal('show'); // Hiển thị modal thành công
+            // Hiển thị modal thành công
+            $('#successModal').modal('show');
+
+            // Tự động đóng modal sau 3 giây
+            setTimeout(function () {
+                $('#successModal').modal('hide');
+            }, 3000);
+
+            // Reset form
             document.getElementById('registrationForm').reset();
         } else {
-            $('#errorModal').modal('show'); // Hiển thị modal lỗi
+            // Hiển thị modal lỗi
+            $('#errorModal').modal('show');
         }
     })
     .catch(error => {
@@ -202,6 +219,8 @@ function submitForm() {
         $('#loadingModal').modal('hide');
     });
 }
+
+
 // ĐỊNH NGHĨA HÀM ĐỂ VIẾT HOA CHỮ CÁI ĐẦU CỦA CHUỖI
         function capitalizeFirstLetter(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
@@ -250,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
 </script>
 <!-- CÁC MODAL THÔNG BÁO KHI GỬI DỮ LIỆU -->
 <!-- Modal Thành công -->
@@ -266,6 +286,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
+
+
+
 
 <!-- Modal Lỗi -->
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
