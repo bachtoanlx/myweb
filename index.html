@@ -1,276 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý chi tiêu cá nhân</title>
-    <!-- Bootstrap MENU CSS -->
-    <link rel="stylesheet" href="menu.css">
-    <!-- Bootstrap CSS -->
+    <title>Liên hệ</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Liên kết đến file CSS -->
+    <!-- Nhúng CSS của Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-
-        /* Thêm CSS tùy chỉnh tại đây nếu cần */
+        /* Thiết lập font-size cho toàn bộ trang */
         body {
-            min-height: 100vh; /* Đảm bảo chiều cao của body ít nhất là 100% chiều cao của viewport */
-			margin: 0;
-			padding: 0;
-			background-color: #f8f9fa; /* Màu nền của trang */
-			display: flex;
-			justify-content: center; /* Căn giữa nội dung theo chiều ngang */
-			align-items: center; /* Căn giữa nội dung theo chiều dọc */
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px; /* Đặt kích thước font chữ mong muốn */
         }
-
-        /* Định dạng cho input "Ghi chú" */
-        #ghi_chu {
-            text-align: left; /* Canh trái nội dung */
-            height: 150px; /* Chiều cao cố định */
-            overflow-y: auto; /* Cho phép tự động xuống dòng khi đủ chiều cao */
-            resize: none; /* Ngăn chặn thay đổi kích thước của textarea */
-        }
-		
-		/* Điều chỉnh khoảng cách giữa label và input */
-		.form-group label {
-			margin-bottom: 3px; /* Khoảng cách dưới của label */
-			display: block; /* Hiển thị label dưới dạng block để nó nằm trên một dòng riêng */
-		}
-		.form-group input,
-		.form-group select,
-		.form-group textarea {
-        margin-bottom: 1px; /* Khoảng cách dưới của input, select, textarea */
-		}
-		
-		/* Điều chỉnh khoảng cách giữa các form-group */
-		.form-group {
-        margin-bottom: 10px; /* Khoảng cách dưới của mỗi form-group */
-		}
-
-		/* Định dạng placeholder */
-		::placeholder {
+        /* Định dạng placeholder */
+		    ::placeholder {
         font-size: 14px; /* Cỡ chữ của placeholder */
         }
-
-        /* Thiết lập kích thước chữ mặc định cho các select */
-        select.form-control {
-        font-size: 14px; /* Kích thước chữ mặc định */
-        }
-
-        /* Sử dụng Media Queries để điều chỉnh kích thước chữ cho các kích cỡ màn hình khác nhau */
-        @media screen and (min-width: 992px) {
-        select.form-control {
-            font-size: 16px; /* Kích thước chữ khi màn hình có độ rộng <= 992px */
-            }
-        }
-
-        /* Sử dụng Media Queries để điều chỉnh kích thước chữ của placeholder cho các kích cỡ màn hình khác nhau */
-        @media screen and (min-width: 992px) {
-            ::placeholder {
-                font-size: 16px; /* Cỡ chữ của placeholder khi màn hình có độ rộng lớn hơn hoặc bằng 992px */
-            }
-        }
-        
-        @media screen and (max-width: 576px) {
-        select.form-control {
-            font-size: 14px; /* Kích thước chữ khi màn hình có độ rộng <= 576px */     
-            }
-        }
-
-        
     </style>
+
 </head>
-
-
 <body>
 
+<!-- BEGIN: Content-->
+<div class="content">
+    <!-- Nội dung trang web -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+<!-- Thanh menu -->
+<div id="menu">
+    <div class="container">
+        <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
+        <div class="menu">
+            <ul>
+                <li><a href="https://bachtoanlx.github.io/ghinhandonghokcn/index.html">Trang chủ</a></li>
+                <li><a href="#">Dữ liệu</a></li>
+                <li><a href="https://bachtoanlx.github.io/ghinhandonghokcn/about.html">Liên hệ</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-    <div class="container mt-3 mb-5"> <!-- Container Bootstrap -->  
-        <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
-            <div class="col-md-5"> <!-- Cột Bootstrap: chiều rộng 41,6% trên màn hình lớn -->
-                <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung --> 
-                    <div class="card-body">
-                        <h5 class="text-center mb-2" style="color: blue;">QUẢN LÝ CHI TIÊU</h5>
-                        <form id="registrationForm" onsubmit="submitForm(); return false;">
+    <a class="navbar-brand" id="navbarTitle" href="#">Giải pháp công nghệ số</a>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item" id="loginLogoutButton">
+            <a class="nav-link" href="#" id="loginButton">Đăng nhập</a>
+        </li>
+    </ul>
+</nav>
 
-                            <div class="form-group">
-                                <label for="Noidungchi">Nội dung chi:</label>
-                                <input type="text" class="form-control" placeholder="Điền nội dung chi..." id="noi_dung_chi" name="noi_dung_chi" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="hinh_thuc_chi">Hình thức:</label>
-                                <select class="form-control" id="hinh_thuc_chi" name="hinh_thuc_chi" required style="display: inline-block; width: 40%;">
-                                  <option value="" disabled selected>Hình thức chi</option>
-                                  <option value="Trực tiếp">Trực tiếp</option>
-                                  <option value="Online">Online</option>
-                                  <option value="Khác">Khác</option>
-                                </select>
-                              
-                                <select class="form-control" id="hinh_thuc_tt" name="hinh_thuc_tt" required style="display: inline-block; width: 58%;">
-                                  <option value="" disabled selected>Hình thức thanh toán</option>
-                                  <option value="Tiền mặt">Tiền mặt</option>
-                                  <option value="Thẻ ghi nợ">Thẻ ghi nợ</option>
-                                  <option value="Chuyển khoản">Chuyển khoản</option>
-                                  <option value="Khác">Khác</option>
-                                </select>
-                              </div>
-                              
-            
-                            <div class="form-group">
-                                <label for="Sotien">Số tiền:</label>
-                                <input type="number" class="form-control" placeholder="Điền số tiền đã chi..." id="so_tien" name="so_tien" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Ngayphatsinh">Ngày phát sinh:</label>
-                                <input type="date" class="form-control" placeholder="Ngày phát sinh giao dịch..." id="ngay_phat_sinh" name="ngay_phat_sinh">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Ghichu">Ghi chú:</label>
-                                <textarea  class="form-control" placeholder="Nhập ghi chú của bạn (nếu cần)" id="ghi_chu" name="ghichu" ></textarea>
-                            </div>
-                        
-                            <div class="form-group text-center">
-                                <button class="btn btn-primary btn-block" id="ss-submit" type="submit">Gửi thông tin</button>
-                            </div>
-
-                            <div id="menu">
-                                <!-- Nội dung của phần bạn muốn áp dụng CSS --> 
-                                <!-- thanh menu -->
-                                <nav>
-                                <a href="https://bachtoanlx.github.io/myweb/index.html">Home</a>
-                                <a href="https://bachtoanlx.github.io/myweb/datatable.html">Data</a>
-                                <a href="https://bachtoanlx.github.io/myweb/about.html">About</a>
-                                <div class="animation start-home"></div>
-                            </nav> 
-                            </div>
-
-                        </form>
+<div class="container mt-3 mb-3">
+    <!-- Container Bootstrap -->
+    <div class="card shadow">
+        <!-- Thẻ card để bao bọc nội dung -->
+        <div class="app-content content">
+            <div class="content-overlay"></div>
+            <div class="header-navbar-shadow"></div>
+            <div class="content-body">
+                <div id="contact-page" class="container">
+                    <div class="row">
+                        <div class="col">
+                            <br>
+                            <h3 class="text-center">Giải pháp công nghệ tương lai</h3>
+                            <h6 class="text-center">Cung cấp kiến thức nền tảng về Lập trình, Thiết kế Web, Cơ sở dữ liệu...</h6>
+                            <h6 class="text-center">Giúp các bạn có niềm tin, hành trang kiến thức vững vàng trên con đường trở thành Nhà phát triển Phần mềm trong tương lai!</h6>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col col-12 col-sm-12 col-md-3 col-lg-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>Giới thiệu</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="mb-3">Họ Tên: Bạch Toàn</h6>
+                                    <div class="mt-0">
+                                        <h6 class="mb-1">Email:</h6>
+                                        <p>
+                                            <a href="mailto:bachtoan.lx@gmail.com">bachtoan.lx@gmail.com</a><br />
+                                        </p>
+                                    </div>
+                                    <div class="mt-0">
+                                        <h6 class="mb-1">Điện thoại:</h6>
+                                        <p>
+                                            <a href="tel:0946000865">0946.000.865</a><br />
+                                        </p>
+                                    </div>
+                                    <div class="mt-0">
+                                        <h6 class="mb-1">Website:</h6>
+                                        <p><a href="https://github.com">https://github.com</a></p>
+                                    </div>
+                                    <div class="mt-0">
+                                        <a href="https://github.com" class="btn btn-sm btn-icon btn-primary p-25"><i class="feather icon-github"></i> Github</a>
+                                        <a href="https://zalo.me/0946000865" class="btn btn-sm btn-icon btn-primary p-25"><i class="feather icon-zalo"></i> Zalo</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11102.003218111298!2d105.48061725918508!3d10.329807953325497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a7349424279e9%3A0x89fe651f8ec11012!2zTmjDoCBCw6FuaCBNw6w!5e0!3m2!1svi!2s!4v1714804647365!5m2!1svi!2s"
+                                    width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                        <div class="col col-12 col-sm-12 col-md-9 col-lg-9">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="cover-container">
+                                        <img class="img-fluid bg-cover rounded-0 w-100" src="https://github.com/bachtoanlx/myweb/assets/167489931/55866bf2-38a4-4b3d-9fef-c073133ccaa8" alt="Nhà Bánh Mì">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <section class="multiple-validation">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="card-title">Gởi lời nhắn đến chúng tôi:</h5>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <form class="form-horizontal" method="post" action="https://" novalidate>
+                                                        <input type="hidden" name="_token" value="xyz">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <div class="controls">
+                                                                        <input type="text" name="name" class="form-control" placeholder="Họ tên của bạn" required
+                                                                               data-validation-required-message="Vui lòng nhập Họ tên" autofocus="autofocus">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <div class="controls">
+                                                                        <input type="email" name="email" class="form-control" placeholder="Địa chỉ Email của bạn" required
+                                                                               data-validation-required-message="Vui lòng nhập Địa chỉ Email">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <div class="controls">
+                                                                        <input type="text" name="phone" class="form-control" placeholder="Số điện thoại" required
+                                                                               data-validation-required-message="Vui lòng để lại số điện thoại để chúng tôi tiện liên hệ">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <div class="controls">
+                                                                        <textarea name="message" class="form-control" placeholder="Nhập lời nhắn của bạn" rows="6" required
+                                                                                  data-validation-required-message="Vui lòng nhập lời nhắn của bạn. Sau khi nhận được thông tin, chúng tôi sẽ liên hệ lại bạn trong thời gian sớm nhất."></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Gởi lời nhắn</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+            
                 </div>
             </div>
         </div>
     </div>
-
-<!-- Bootstrap JS và các thư viện khác -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+</div>
+<!-- Bootstrap JS và jQuery (cần thiết cho Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-// Hàm xử lý khi submit form
-function submitForm() {
-    // Hiển thị modal loading
-    $('#loadingModal').modal('show');
+<script src="script.js"></script> <!-- Liên kết đến file JavaScript -->
 
-    var noi_dung_chi = document.getElementById('noi_dung_chi').value;
-    var hinh_thuc_chi = document.getElementById('hinh_thuc_chi').value;
-    var hinh_thuc_tt = document.getElementById('hinh_thuc_tt').value;
-    var so_tien = document.getElementById('so_tien').value;
-    var ngay_phat_sinh = document.getElementById('ngay_phat_sinh').value || getCurrentDate();
-    var ghi_chu = document.getElementById('ghi_chu').value;
-
-    if (!noi_dung_chi || !hinh_thuc_chi || !hinh_thuc_tt || !so_tien) {
-        $('#errorModal').modal('show'); // Hiển thị modal lỗi
-        $('#loadingModal').modal('hide'); // Ẩn modal loading
-        return;
-    }
-
-    var formData = {
-        noi_dung_chi: noi_dung_chi,
-        hinh_thuc_chi: hinh_thuc_chi,
-        hinh_thuc_tt: hinh_thuc_tt,
-        so_tien: so_tien,
-        ngay_phat_sinh: ngay_phat_sinh,
-        ghi_chu: ghi_chu
-    };
-
-    console.log(formData);
-
-    fetch('https://script.google.com/macros/s/AKfycbzJI-iqo9UcL854_1yqWVZwP2hpHtPCdZ2r0AMEBykjgz6Kp2QeU3jSshLGypCGWMjU/exec', {
-        method: 'POST',
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        if (data.result === 'success') {
-            // Hiển thị modal thành công
-            $('#successModal').modal('show');
-
-            // Tự động đóng modal sau 2 giây
-            setTimeout(function () {
-                $('#successModal').modal('hide');
-            }, 2000);
-
-            // Reset form
-            document.getElementById('registrationForm').reset();
-        } else {
-            // Hiển thị modal lỗi
-            $('#errorModal').modal('show');
-        }
-    })
-    .catch(error => {
-        console.error('Đã xảy ra lỗi:', error);
-        $('#errorModal').modal('show'); // Hiển thị modal lỗi
-    })
-    .finally(() => {
-        // Ẩn modal loading sau khi hoàn thành
-        $('#loadingModal').modal('hide');
-    });
-}
-
-
-// ĐỊNH NGHĨA HÀM ĐỂ VIẾT HOA CHỮ CÁI ĐẦU CỦA CHUỖI
-        function capitalizeFirstLetter(str) {
-            return str.charAt(0).toUpperCase() + str.slice(1);
-        }
-
-        // Lắng nghe sự kiện khi người dùng nhập liệu vào trường input
-        document.addEventListener('DOMContentLoaded', function() {
-            var inputField = document.getElementById('noi_dung_chi');
-
-            inputField.addEventListener('input', function() {
-                // Lấy giá trị nhập vào từ trường input
-                var inputValue = inputField.value;
-
-                // Chuyển đổi chuỗi thành dạng viết hoa chữ cái đầu
-                var capitalizedValue = capitalizeFirstLetter(inputValue);
-
-                // Đặt lại giá trị đã chuyển đổi vào trường input
-                inputField.value = capitalizedValue;
-            });
-        });
-
-// HÀM LẤY NGÀY HIỆN TẠI DƯỚI DẠNG CHUỖI YYYY-MM-DD
-function getCurrentDate() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Tháng đếm từ 0, cần cộng thêm 1 và format về dạng 2 chữ số
-    var day = ('0' + today.getDate()).slice(-2); // Ngày format về dạng 2 chữ số
-    return year + '-' + month + '-' + day;
-}
-
-function setMaxDateForNgayPhatSinh() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2); // Tháng đếm từ 0, cần cộng thêm 1 và format về dạng 2 chữ số
-    var day = ('0' + today.getDate()).slice(-2); // Ngày format về dạng 2 chữ số
-
-    var maxDate = year + '-' + month + '-' + day;
-
-    // Đặt thuộc tính max cho input ngày phat sinh 
-    document.getElementById('ngay_phat_sinh').setAttribute('max', maxDate);
-}
-
-// Gọi hàm setMaxDateForNgayPhatSinh() khi tài liệu được tải
-document.addEventListener('DOMContentLoaded', function() {
-    setMaxDateForNgayPhatSinh();
-});
-
-
-
-</script>
 <!-- CÁC MODAL THÔNG BÁO KHI GỬI DỮ LIỆU -->
 <!-- Modal Thành công -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -286,9 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
-
-
-
 
 <!-- Modal Lỗi -->
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
@@ -309,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
+
 <!-- Modal Loading khi đang gửi dữ liệu-->
 <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -323,6 +234,52 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </div>
 
-
+<!-- Modal Đăng nhập -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="username">Tên đăng nhập:</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu:</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="loginSubmitButton">Đăng nhập</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- Modal Đăng Xuất Thành Công -->
+<div class="modal fade" id="logoutSuccessModal" tabindex="-1" aria-labelledby="logoutSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutSuccessModalLabel">Thông báo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </div>
+        <div class="modal-body">
+          Đăng xuất thành công!
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
