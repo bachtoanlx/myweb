@@ -73,22 +73,16 @@
         select.form-control {
             font-size: 14px; /* Kích thước chữ khi màn hình có độ rộng <= 576px */     
             }
-        }
-
-        
+        }     
     </style>
 </head>
-
-
 <body>
-
-
     <div class="container mt-3 mb-5"> <!-- Container Bootstrap -->  
         <div class="row justify-content-center"> <!-- Row Bootstrap: căn giữa nội dung -->
             <div class="col-md-5"> <!-- Cột Bootstrap: chiều rộng 41,6% trên màn hình lớn -->
                 <div class="card shadow"> <!-- Thẻ card để bao bọc nội dung --> 
                     <div class="card-body">
-                        <h5 class="text-center mb-2" style="color: blue;">QUẢN LÝ CHI TIÊU</h5>
+                        <h5 class="text-center mb-2" style="color: rgb(80, 80, 82);">QUẢN LÝ CHI TIÊU</h5>
                         <form id="registrationForm" onsubmit="submitForm(); return false;">
 
                             <div class="form-group">
@@ -151,9 +145,11 @@
             </div>
         </div>
     </div>
+    <!-- Chèn các modal từ modals.html -->
+    <div id="modals-container"></div>
 
 <!-- Bootstrap JS và các thư viện khác -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -177,6 +173,7 @@ function submitForm() {
     }
 
     var formData = {
+        sheetName: 'Sheet1',
         noi_dung_chi: noi_dung_chi,
         hinh_thuc_chi: hinh_thuc_chi,
         hinh_thuc_tt: hinh_thuc_tt,
@@ -198,10 +195,10 @@ function submitForm() {
             // Hiển thị modal thành công
             $('#successModal').modal('show');
 
-            // Tự động đóng modal sau 3 giây
+            // Tự động đóng modal sau 2 giây
             setTimeout(function () {
                 $('#successModal').modal('hide');
-            }, 3000);
+            }, 2000);
 
             // Reset form
             document.getElementById('registrationForm').reset();
@@ -267,62 +264,15 @@ function setMaxDateForNgayPhatSinh() {
 document.addEventListener('DOMContentLoaded', function() {
     setMaxDateForNgayPhatSinh();
 });
-
+                // Tải nội dung từ modals.html và chèn vào trang hiện tại
+                $(document).ready(function() {
+                    $('#modals-container').load('modals.html', function() {
+                        // Sau khi modals.html được tải và chèn vào DOM, tải script liên quan đến modal
+                        //$.getScript('modals_dangnhap.js');
+                    });
+                });
 
 
 </script>
-<!-- CÁC MODAL THÔNG BÁO KHI GỬI DỮ LIỆU -->
-<!-- Modal Thành công -->
-<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <p class="text-success"><i class="fas fa-check-circle fa-3x mb-3"></i></p>
-                <p class="mb-0"><strong>Ghi nhận thành công!</strong></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<!-- Modal Lỗi -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="errorModalLabel">Lỗi!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Ghi nhận thất bại. Vui lòng thử lại.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal Loading khi đang gửi dữ liệu-->
-<div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <p class="mt-2">Đang gửi dữ liệu...</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 </body>
 </html>
